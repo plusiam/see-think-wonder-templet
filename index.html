@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See Think Wonder 학습지</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @page {
+            size: A4 landscape;
+            margin: 10mm;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .worksheet {
+            width: 297mm;
+            height: 210mm;
+            background-color: white;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+            padding: 4mm;
+            max-height: 200mm;
+            overflow: hidden;
+        }
+        
+        .header {
+            width: 100%;
+            height: 20mm;
+            background: linear-gradient(90deg, #4A90E2 0%, #5A9FE8 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6mm;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .student-info {
+            width: 140mm;
+            height: 12mm;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 3mm;
+            margin-bottom: 6mm;
+            margin-left: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6mm;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            flex: 1;
+        }
+        
+        .info-label {
+            margin-right: 3mm;
+            font-weight: 600;
+            color: #555;
+            font-size: 12px;
+            min-width: 12mm;
+        }
+        
+        .info-input {
+            flex: 1;
+            height: 6mm;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+            transition: border-color 0.3s ease;
+        }
+        
+        .info-input:hover {
+            border-color: #4A90E2;
+        }
+        
+        .info-input:focus {
+            outline: none;
+            border-color: #4A90E2;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1), 0 0 0 2px rgba(74,144,226,0.2);
+        }
+        
+        .sections {
+            display: flex;
+            gap: 4mm;
+            height: 111mm;
+            margin-bottom: 3mm;
+        }
+        
+        .section {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .section.see {
+            border: 4px solid #4CAF50;
+        }
+        
+        .section.think {
+            border: 4px solid #FF9800;
+        }
+        
+        .section.wonder {
+            border: 4px solid #F44336;
+        }
+        
+        .section-header {
+            height: 20mm;
+            padding: 3mm;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .section.see .section-header {
+            background-color: #E8F5E8;
+        }
+        
+        .section.think .section-header {
+            background-color: #FFF3E0;
+        }
+        
+        .section.wonder .section-header {
+            background-color: #FFEBEE;
+        }
+        
+        .section-emoji {
+            font-size: 28px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 12px;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1px;
+        }
+        
+        .section-korean {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .section.see .section-title {
+            color: #2E7D32;
+        }
+        
+        .section.think .section-title {
+            color: #E65100;
+        }
+        
+        .section.wonder .section-title {
+            color: #C62828;
+        }
+        
+        .section-content {
+            height: 91mm;
+            padding: 3mm;
+            background-color: #fafafa;
+            border-top: 1px solid #ddd;
+            position: relative;
+        }
+        
+        .writing-area {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border-radius: 4px;
+            padding: 4mm;
+        }
+        
+        .footer {
+            position: relative;
+            left: 0;
+            right: 0;
+            height: 16mm;
+            margin-top: 0;
+        }
+        
+        .summary-section {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 4mm;
+            height: 100%;
+        }
+        
+        .summary-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 1mm;
+            text-align: left;
+            padding-left: 2mm;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .worksheet {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                height: 100vh;
+                padding: 4mm;
+                page-break-inside: avoid;
+                page-break-after: avoid;
+            }
+            
+            .sections {
+                page-break-inside: avoid;
+            }
+            
+            .footer {
+                page-break-inside: avoid;
+            }
+            
+            .print-button {
+                display: none !important;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+        }
+        
+        @media screen {
+            body {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .print-controls {
+                margin: 20px 0;
+                text-align: center;
+            }
+            
+            .print-button {
+                background: linear-gradient(135deg, #4A90E2 0%, #5A9FE8 100%);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+                transition: all 0.3s ease;
+                font-family: 'Noto Sans KR', Arial, sans-serif;
+                margin: 0 10px;
+            }
+            
+            .print-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+            }
+            
+            .print-button:active {
+                transform: translateY(0);
+            }
+            
+            .print-button.pdf {
+                background: linear-gradient(135deg, #28a745 0%, #34ce57 100%);
+                box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+            }
+            
+            .print-button.pdf:hover {
+                box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
+            }
+            
+            .print-guide-text {
+                margin-top: 15px;
+                font-size: 14px;
+                color: #666;
+                line-height: 1.5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 인쇄 컨트롤 -->
+    <div class="print-controls no-print">
+        <button class="print-button" onclick="printWorksheet()">🖨️ 인쇄하기</button>
+        <button class="print-button pdf" onclick="downloadPDF()">📄 PDF 다운로드</button>
+        <div class="print-guide-text">
+            <strong>📋 인쇄 안내:</strong><br>
+            • <strong>인쇄하기:</strong> 브라우저 인쇄 대화상자가 열립니다<br>
+            • <strong>PDF 다운로드:</strong> 인쇄 대화상자에서 "PDF로 저장" 선택<br>
+            • <strong>용지 설정:</strong> A4 가로 (Landscape) 반드시 선택<br>
+            • <strong>여백:</strong> 없음 (None) 또는 최소 설정<br>
+            • <strong>헤더/푸터:</strong> 체크 해제하여 파일 경로 제거
+        </div>
+    </div>
+
+    <div class="worksheet">
+        <!-- 헤더 -->
+        <div class="header">
+            <h1>See Think Wonder</h1>
+        </div>
+        
+        <!-- 학생 정보 -->
+        <div class="student-info">
+            <div class="info-item">
+                <label class="info-label">학반:</label>
+                <div class="info-input"></div>
+            </div>
+            <div class="info-item">
+                <label class="info-label">번호:</label>
+                <div class="info-input"></div>
+            </div>
+            <div class="info-item">
+                <label class="info-label">이름:</label>
+                <div class="info-input"></div>
+            </div>
+        </div>
+        
+        <!-- 3개 섹션 -->
+        <div class="sections">
+            <!-- SEE 섹션 -->
+            <div class="section see">
+                <div class="section-header">
+                    <div class="section-emoji">👀</div>
+                    <div>
+                        <div class="section-title">SEE</div>
+                        <div class="section-subtitle">What do you see?</div>
+                        <div class="section-korean">무엇이 보이나요?</div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="writing-area"></div>
+                </div>
+            </div>
+            
+            <!-- THINK 섹션 -->
+            <div class="section think">
+                <div class="section-header">
+                    <div class="section-emoji">🤔</div>
+                    <div>
+                        <div class="section-title">THINK</div>
+                        <div class="section-subtitle">What do you think is going on?</div>
+                        <div class="section-korean">무슨 일이 일어나고 있다고 생각하나요?</div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="writing-area"></div>
+                </div>
+            </div>
+            
+            <!-- WONDER 섹션 -->
+            <div class="section wonder">
+                <div class="section-header">
+                    <div class="section-emoji">❓</div>
+                    <div>
+                        <div class="section-title">WONDER</div>
+                        <div class="section-subtitle">What does it make you wonder?</div>
+                        <div class="section-korean">무엇이 궁금한가요?</div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="writing-area"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 종합 정리 영역 -->
+        <div class="footer">
+            <div class="summary-section">
+                <div class="summary-title">📝 종합 정리 및 생각</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function printWorksheet() {
+            // 인쇄 전 페이지 설정 안내
+            const userConfirmed = confirm(
+                "📋 인쇄 설정 확인:\n\n" +
+                "✅ 용지: A4 가로 (Landscape)\n" +
+                "✅ 여백: 없음 (None) 또는 최소\n" +
+                "✅ 헤더/푸터: 없음 (브라우저 설정에서 체크 해제)\n" +
+                "✅ 크기: 페이지에 맞춤\n\n" +
+                "💡 헤더/푸터 제거 방법:\n" +
+                "• Chrome: 인쇄 옵션에서 '헤더 및 푸터' 체크 해제\n" +
+                "• Safari: 인쇄 대화상자에서 헤더/푸터 설정 변경\n\n" +
+                "설정을 확인하셨으면 '확인'을 클릭하세요."
+            );
+            
+            if (userConfirmed) {
+                // 잠시 기다린 후 인쇄 대화상자 열기
+                setTimeout(() => {
+                    window.print();
+                }, 100);
+            }
+        }
+
+        function downloadPDF() {
+            // PDF 다운로드 안내
+            alert(
+                "📄 PDF 다운로드 방법:\n\n" +
+                "1. 인쇄 대화상자가 열립니다\n" +
+                "2. 프린터를 'PDF로 저장' 또는 'Microsoft Print to PDF' 선택\n" +
+                "3. 용지 설정을 A4 가로 (Landscape)로 변경\n" +
+                "4. 여백을 '없음' 또는 '최소'로 설정\n" +
+                "5. 헤더/푸터를 체크 해제 (파일 경로 제거)\n" +
+                "6. '인쇄' 버튼을 클릭하여 PDF 저장\n\n" +
+                "'확인'을 클릭하면 인쇄 대화상자가 열립니다."
+            );
+            
+            // 인쇄 대화상자 열기
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        }
+
+        // 페이지 로드 시 인쇄 설정 확인
+        window.addEventListener('load', function() {
+            // 인쇄 미리보기 스타일 체크
+            const isLandscape = window.matchMedia('(orientation: landscape)').matches;
+            if (!isLandscape && window.innerWidth < window.innerHeight) {
+                console.log('A4 가로 모드로 인쇄하는 것이 최적입니다.');
+            }
+        });
+
+        // 인쇄 전후 이벤트 처리
+        window.addEventListener('beforeprint', function() {
+            // 인쇄 전 최종 스타일 적용
+            document.body.style.margin = '0';
+            document.body.style.padding = '0';
+        });
+
+        window.addEventListener('afterprint', function() {
+            // 인쇄 후 원래 스타일 복원
+            document.body.style.margin = '';
+            document.body.style.padding = '';
+        });
+    </script>
+</body>
+</html>
